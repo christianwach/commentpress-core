@@ -678,7 +678,7 @@ class CommentPress_AJAX_Comments {
 	 *
 	 * @param int    $comment_id The numeric ID of the Comment.
 	 * @param string $text_sig The Text Signature.
-	 * @param array $comment_ids The array of Comment IDs.
+	 * @param array  $comment_ids The array of Comment IDs.
 	 */
 	public function comment_children_reassign( $comment_id, $text_sig, &$comment_ids ) {
 

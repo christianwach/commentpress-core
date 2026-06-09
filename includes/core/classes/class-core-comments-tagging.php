@@ -680,7 +680,7 @@ class CommentPress_Core_Comments_Tagging {
 	 *
 	 * @since 4.0
 	 *
-	 * @param int $comment_id The numeric ID of the Comment.
+	 * @param int    $comment_id The numeric ID of the Comment.
 	 * @param string $comment_status The status of the Comment.
 	 */
 	public function comment_saved( $comment_id, $comment_status ) {
