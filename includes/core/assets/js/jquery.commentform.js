@@ -648,7 +648,7 @@ addComment = {
 	enableForm : function() {
 
 		// Test for TinyMCE.
-		if ( cp_tinymce == '1' ) {
+		if ( cp_tinymce == '1' && jQuery('#wp-comment-wrap').hasClass( 'tmce-active' ) ) {
 
 			// Load TinyMCE version 4.
 			setTimeout( function() {
