@@ -55,6 +55,9 @@ addComment = {
 	 */
 	moveForm : function( commentID, parentID, respondID, postID, textSig ) {
 
+		// Grab existing comment content.
+		var existing_content = addComment.getCommentContent();
+
 		// Unload tinyMCE.
 		this.disableForm();
 
@@ -155,11 +158,19 @@ addComment = {
 
 		} else {
 
-			// Try and give focus to textarea - disabled since we use tinyMCE
-			// except for on mobile devices, where we don't want to auto-focus.
-			//try { this.I('comment').focus(); }
-			//catch(e) {}
+			/*
+			 * Try and give focus to textarea.
+			 *
+			 * Disabled since we use tinyMCE except for on mobile devices, where
+			 * we don't want to auto-focus.
+			 */
+			//try { this.I('comment').focus(); } catch(e) {}
 
+		}
+
+		// Restore comment content if any.
+		if ( existing_content != '' ) {
+			addComment.setCommentContent( existing_content );
 		}
 
 		// Show respond element.
@@ -894,6 +905,81 @@ addComment = {
 			return true;
 		} else {
 			return false;
+		}
+
+	},
+
+	/**
+	 * Checks if there is Comment content in the editor.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return {Boolean} Empty string
+	 */
+	hasCommentContent : function() {
+
+		// Get the current content.
+		if ( '' == addComment.getCommentContent() ) {
+			return false;
+		} else {
+			return true;
+		}
+
+	},
+
+	/**
+	 * Gets the Comment content from the editor.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @return {String} The Comment content.
+	 */
+	getCommentContent : function() {
+
+		// Test for TinyMCE.
+		if ( cp_tinymce == '1' ) {
+			// Do we have TinyMCE or QuickTags active?
+			if ( jQuery('#wp-comment-wrap').hasClass( 'html-active' ) ) {
+				content = jQuery('#comment').val();
+			} else {
+				if ( 'undefined' === typeof tinymce.activeEditor || tinymce.activeEditor === null ) {
+					content = jQuery('#comment').val();
+				} else {
+					content = tinymce.activeEditor.getContent();
+				}
+			}
+		} else {
+			content = jQuery('#comment').val();
+		}
+
+		// --<
+		return content;
+
+	},
+
+	/**
+	 * Sets the Comment content in the editor.
+	 *
+	 * @since 4.0.6
+	 *
+	 * @param {String} content The Comment content.
+	 */
+	setCommentContent : function( content ) {
+
+		// Test for TinyMCE.
+		if ( cp_tinymce == '1' ) {
+			// Do we have TinyMCE or QuickTags active?
+			if ( jQuery('#wp-comment-wrap').hasClass( 'html-active' ) ) {
+				jQuery('#comment').val( content );
+			} else {
+				if ( 'undefined' === typeof tinymce.activeEditor || tinymce.activeEditor === null ) {
+					jQuery('#comment').val( content );
+				} else {
+					tinymce.activeEditor.setContent( content );
+				}
+			}
+		} else {
+			jQuery('#comment').val( content );
 		}
 
 	}
