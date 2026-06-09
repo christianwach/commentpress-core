@@ -438,7 +438,7 @@ CommentPress.texthighlighter.textblocks = new function() {
 	 */
 	this.setup_popover = function() {
 
-		// Append popover to body element
+		// Append popover to body element.
 		$(me.popover_textblock).appendTo( 'body' );
 
 		/**
@@ -482,7 +482,7 @@ CommentPress.texthighlighter.textblocks = new function() {
 			wrap = $('#' + textblock_id).wrapSelection({fitToWord: false}).addClass( 'inline-highlight' );
 
 			// Save current selection.
-			//CommentPress.texthighlighter.selection_save_for_textblock( textblock_id );
+			//me.selection_save_for_textblock( textblock_id );
 
 			// Do not bubble.
 			return false;
